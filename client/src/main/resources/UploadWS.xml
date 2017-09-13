@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://server.cxf.examples.ua/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="UploadServiceEndpointImplService" targetNamespace="http://server.cxf.examples.ua/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://server.cxf.examples.ua/" elementFormDefault="unqualified" targetNamespace="http://server.cxf.examples.ua/" version="1.0">
+
+  <xs:element name="uploadFile" type="tns:uploadFile"/>
+
+  <xs:element name="uploadFileResponse" type="tns:uploadFileResponse"/>
+
+  <xs:complexType name="uploadFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Dfile" type="tns:uploadedFile"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="uploadedFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dataHandler" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="fileType" type="xs:string"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="uploadFileResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="uploadFile">
+    <wsdl:part element="tns:uploadFile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uploadFileResponse">
+    <wsdl:part element="tns:uploadFileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UploadWS">
+    <wsdl:operation name="uploadFile">
+      <wsdl:input message="tns:uploadFile" name="uploadFile">
+    </wsdl:input>
+      <wsdl:output message="tns:uploadFileResponse" name="uploadFileResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UploadServiceEndpointImplServiceSoapBinding" type="tns:UploadWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="uploadFile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="uploadFile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="uploadFileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UploadServiceEndpointImplService">
+    <wsdl:port binding="tns:UploadServiceEndpointImplServiceSoapBinding" name="UploadServiceEndpointImplPort">
+      <soap:address location="http://localhost:8080/services/UploadWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
